@@ -13,5 +13,5 @@ cdef extern from "PyGISCore/Size.h":
         Size operator+(const Size&)
         Size operator-(const Size&)
 
-# cdef class PySize:
-    # cdef Size *csize
+cdef class PySize:
+    cdef Size *csize

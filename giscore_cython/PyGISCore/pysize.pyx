@@ -12,7 +12,7 @@
 #         # Size operator-(const Size&)
 
 cdef class PySize:
-    cdef Size *csize
+    # cdef Size *csize
     def __cinit__(self,int x=0,int y=0):
         self.csize =  new  Size(x,y)
     def __dealloc__(self):
