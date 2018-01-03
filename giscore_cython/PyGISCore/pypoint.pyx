@@ -78,41 +78,41 @@ cdef class PyPoint:
     # def _from(self,PySize sz):
     #     self.cpoint.opassign(sz.csize[0])
     #     return self
-    def __iadd__(self,PyPoint right):
-        cdef Point pt = self.cpoint.opiadd(right.cpoint[0])
-        cdef PyPoint pypt = PyPoint(pt.x,pt.y)
-        return pypt
+    # def __iadd__(self,PyPoint right):
+    #     cdef Point pt = self.cpoint.opiadd(right.cpoint[0])
+    #     cdef PyPoint pypt = PyPoint(pt.x,pt.y)
+    #     return pypt
 
-    def __iadd__(self,PySize right):
-        cdef PyPoint pright = PyPoint(right)
-        cdef Point pt = self.cpoint.opiadd(pright.cpoint[0])
-        cdef PyPoint pypt = PyPoint(pt.x,pt.y)
-        return pypt
+    # def __iadd__(self,PySize right):
+    #     cdef PyPoint pright = PyPoint(right)
+    #     cdef Point pt = self.cpoint.opiadd(pright.cpoint[0])
+    #     cdef PyPoint pypt = PyPoint(pt.x,pt.y)
+    #     return pypt
 
-    def __isub__(self,PyPoint right):
-        cdef Point pt = self.cpoint.opisub(right.cpoint[0])
-        cdef PyPoint pypt = PyPoint(pt.x,pt.y)
-        return pypt
+    # def __isub__(self,PyPoint right):
+    #     cdef Point pt = self.cpoint.opisub(right.cpoint[0])
+    #     cdef PyPoint pypt = PyPoint(pt.x,pt.y)
+    #     return pypt
 
-    def __isub__(self,PySize right):
-        cdef PyPoint pright = PyPoint(right)
-        cdef Point pt = self.cpoint.opisub(pright.cpoint[0])
-        cdef PyPoint pypt = PyPoint(pt.x,pt.y)
-        return pypt
+    # def __isub__(self,PySize right):
+    #     cdef PyPoint pright = PyPoint(right)
+    #     cdef Point pt = self.cpoint.opisub(pright.cpoint[0])
+    #     cdef PyPoint pypt = PyPoint(pt.x,pt.y)
+    #     return pypt
 
-    def __sub__(PyPoint left,PySize right):
-        cdef PyPoint pright = PyPoint(right)
-        cdef Point pt = left.cpoint[0] - pright.cpoint[0]
-        cdef PyPoint pypt = PyPoint(pt.x,pt.y)
-        return pypt
+    # def __sub__(PyPoint left,PySize right):
+    #     cdef PyPoint pright = PyPoint(right)
+    #     cdef Point pt = left.cpoint[0] - pright.cpoint[0]
+    #     cdef PyPoint pypt = PyPoint(pt.x,pt.y)
+    #     return pypt
 
-    def __neg__(self):
-        cdef Point pt = -self.cpoint[0]
-        cdef PyPoint pypt = PyPoint(pt.x,pt.y)
-        return pypt
+    # def __neg__(self):
+    #     cdef Point pt = -self.cpoint[0]
+    #     cdef PyPoint pypt = PyPoint(pt.x,pt.y)
+    #     return pypt
 
-    def __lt__(PyPoint left,PyPoint right):
-        return left.cpoint[0] < right.cpoint[0]
+    # def __lt__(PyPoint left,PyPoint right):
+    #     return left.cpoint[0] < right.cpoint[0]
 
     # def __add__(PyPoint left,PyPoint right):
     #     cdef Point pt = left.cpoint[0] + right.cpoint[0]
@@ -125,16 +125,16 @@ cdef class PyPoint:
     #     cdef PyPoint pypt = PyPoint(pt.x,pt.y)
     #     return pypt
 
-    def __sub__(PyPoint left,PyPoint right):
-        cdef Point pt = left.cpoint[0] - right.cpoint[0]
-        cdef PyPoint pypt = PyPoint(pt.x,pt.y)
-        return pypt
+    # def __sub__(PyPoint left,PyPoint right):
+    #     cdef Point pt = left.cpoint[0] - right.cpoint[0]
+    #     cdef PyPoint pypt = PyPoint(pt.x,pt.y)
+    #     return pypt
 
-    def __sub__(PyPoint left,PySize right):
-        cdef PyPoint pright = PyPoint(right)
-        cdef Point pt = left.cpoint[0] -  pright.cpoint[0]
-        cdef PyPoint pypt = PyPoint(pt.x,pt.y)
-        return pypt
+    # def __sub__(PyPoint left,PySize right):
+    #     cdef PyPoint pright = PyPoint(right)
+    #     cdef Point pt = left.cpoint[0] -  pright.cpoint[0]
+    #     cdef PyPoint pypt = PyPoint(pt.x,pt.y)
+    #     return pypt
 
     # def __add__(PySize left,PyPoint right):
     #     cdef Size sz = left.csize[0]
