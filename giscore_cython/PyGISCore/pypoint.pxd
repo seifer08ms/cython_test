@@ -28,8 +28,8 @@ cdef extern from "PyGISCore/Point.h":
         Point operator+(const Size&)
         Point operator-(const Point&)
         Point operator-(const Size&)
-    cdef Point operator+(const Size& sz,const Point& pnt)
-    cdef Point operator-(const Size& sz,const Point& pnt)
+    cdef Point opadd_sp "operator+"(const Size&,const Point& )
+    cdef Point opsub_sp "operator-"(const Size&,const Point& )
 
 cdef class PyPoint:
     cdef Point *cpoint

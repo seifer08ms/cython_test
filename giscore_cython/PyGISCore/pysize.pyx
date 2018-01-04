@@ -17,15 +17,48 @@ cdef class PySize:
         self.csize =  new  Size(x,y)
     def __dealloc__(self):
         del self.csize
-    def __add__(PySize left,PySize right):
-        print("tttt")
-        cdef Size si = left.csize[0] + right.csize[0]
-        cdef PySize pys = PySize(si.cx,si.cy)
-        return pys
-    def __sub__(PySize left,PySize right):
-        cdef Size si = left.csize[0] - right.csize[0]
-        cdef PySize pys = PySize(si.cx,si.cy)
-        return pys
+    # def __add__(PySize left,PySize right):
+    #     cdef Size si = left.csize[0] + right.csize[0]
+    #     cdef PySize pys = PySize(si.cx,si.cy)
+    #     return pys
+    def __add__(left,right):
+        cdef Size sz
+        cdef Point pt
+        cdef PySize pys
+        cdef PyPoint ppt
+        if isinstance(left,PySize):
+            if isinstance(right,PySize):
+                sz = (<PySize>left).csize[0] + (<PySize>right).csize[0] 
+                pys = PySize(sz.cx,sz.cy)
+                return pys
+            elif isinstance(right,PyPoint):
+                pt = pypoint.opadd_sp((<PySize>left).csize[0],(<PyPoint>right).cpoint[0])
+                ppt = PyPoint(pt.x,pt.y)
+                return ppt
+        else:
+            return NotImplemented
+
+    def __sub__(left,right):
+        cdef Size sz
+        cdef Point pt
+        cdef PySize pys
+        cdef PyPoint ppt
+        if isinstance(left,PySize):
+            if isinstance(right,PySize):
+                sz = (<PySize>left).csize[0] - (<PySize>right).csize[0] 
+                pys = PySize(sz.cx,sz.cy)
+                return pys
+            elif isinstance(right,PyPoint):
+                pt = pypoint.opsub_sp((<PySize>left).csize[0],(<PyPoint>right).cpoint[0])
+                ppt = PyPoint(pt.x,pt.y)
+                return ppt
+        else:
+            return NotImplemented
+
+    # def __sub__(PySize left,PySize right):
+    #     cdef Size si = left.csize[0] - right.csize[0]
+    #     cdef PySize pys = PySize(si.cx,si.cy)
+    #     return pys
     def __iadd__(self,PySize right):
         cdef Size si = self.csize.opiadd(right.csize[0])
         cdef PySize pys = PySize(si.cx,si.cy)

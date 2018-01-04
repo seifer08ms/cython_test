@@ -31,9 +31,14 @@ ext_options = {
 
 ext_modules = [
     Extension("pysize", ["PyGISCore/pysize.pyx",
-                         "PyGISCore/Size.cpp"], **ext_options),
+                         "PyGISCore/Size.cpp",
+                         "PyGISCore/Point.cpp"
+                         ],
+              **ext_options),
     Extension("pypoint", ["PyGISCore/pypoint.pyx",
-                          "PyGISCore/Point.cpp", "PyGISCore/Size.cpp"],
+                          "PyGISCore/Point.cpp",
+                          "PyGISCore/Size.cpp"
+                          ],
               **ext_options)
     # Extension("cytest",
     # ["PyGISCore/cysize.pyx",

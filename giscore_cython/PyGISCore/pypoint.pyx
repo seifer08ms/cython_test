@@ -78,16 +78,16 @@ cdef class PyPoint:
     # def _from(self,PySize sz):
     #     self.cpoint.opassign(sz.csize[0])
     #     return self
-    # def __iadd__(self,PyPoint right):
-    #     cdef Point pt = self.cpoint.opiadd(right.cpoint[0])
-    #     cdef PyPoint pypt = PyPoint(pt.x,pt.y)
-    #     return pypt
+    def __iadd__(self,PyPoint right):
+        cdef Point pt = self.cpoint.opiadd(right.cpoint[0])
+        cdef PyPoint pypt = PyPoint(pt.x,pt.y)
+        return pypt
 
-    # def __iadd__(self,PySize right):
-    #     cdef PyPoint pright = PyPoint(right)
-    #     cdef Point pt = self.cpoint.opiadd(pright.cpoint[0])
-    #     cdef PyPoint pypt = PyPoint(pt.x,pt.y)
-    #     return pypt
+    def __iadd__(self,PySize right):
+        cdef PyPoint pright = PyPoint(right)
+        cdef Point pt = self.cpoint.opiadd(pright.cpoint[0])
+        cdef PyPoint pypt = PyPoint(pt.x,pt.y)
+        return pypt
 
     # def __isub__(self,PyPoint right):
     #     cdef Point pt = self.cpoint.opisub(right.cpoint[0])
@@ -100,69 +100,63 @@ cdef class PyPoint:
     #     cdef PyPoint pypt = PyPoint(pt.x,pt.y)
     #     return pypt
 
-    # def __sub__(PyPoint left,PySize right):
-    #     cdef PyPoint pright = PyPoint(right)
-    #     cdef Point pt = left.cpoint[0] - pright.cpoint[0]
-    #     cdef PyPoint pypt = PyPoint(pt.x,pt.y)
-    #     return pypt
+    def __sub__(PyPoint left,PySize right):
+        cdef PyPoint pright = PyPoint(right)
+        cdef Point pt = left.cpoint[0] - pright.cpoint[0]
+        cdef PyPoint pypt = PyPoint(pt.x,pt.y)
+        return pypt
 
-    # def __neg__(self):
-    #     cdef Point pt = -self.cpoint[0]
-    #     cdef PyPoint pypt = PyPoint(pt.x,pt.y)
-    #     return pypt
+    def __neg__(self):
+        cdef Point pt = -self.cpoint[0]
+        cdef PyPoint pypt = PyPoint(pt.x,pt.y)
+        return pypt
 
-    # def __lt__(PyPoint left,PyPoint right):
-    #     return left.cpoint[0] < right.cpoint[0]
+    def __lt__(PyPoint left,PyPoint right):
+        return left.cpoint[0] < right.cpoint[0]
 
-    # def __add__(PyPoint left,PyPoint right):
-    #     cdef Point pt = left.cpoint[0] + right.cpoint[0]
-    #     cdef PyPoint pypt = PyPoint(pt.x,pt.y)
-    #     return pypt
-
-    # def __add__(PyPoint left,PySize right):
-    #     cdef PyPoint pright = PyPoint(right)
-    #     cdef Point pt = left.cpoint[0] + pright.cpoint[0]
-    #     cdef PyPoint pypt = PyPoint(pt.x,pt.y)
-    #     return pypt
-
-    # def __sub__(PyPoint left,PyPoint right):
-    #     cdef Point pt = left.cpoint[0] - right.cpoint[0]
-    #     cdef PyPoint pypt = PyPoint(pt.x,pt.y)
-    #     return pypt
-
-    # def __sub__(PyPoint left,PySize right):
-    #     cdef PyPoint pright = PyPoint(right)
-    #     cdef Point pt = left.cpoint[0] -  pright.cpoint[0]
-    #     cdef PyPoint pypt = PyPoint(pt.x,pt.y)
-    #     return pypt
-
-    # def __add__(PySize left,PyPoint right):
-    #     cdef Size sz = left.csize[0]
-    #     cdef Point pt = opadd(sz, right.cpoint[0])
-    #     cdef PyPoint pypt = PyPoint(pt.x,pt.y)
-    #     return pypt
+    def __sub__(left,right):
+        cdef PyPoint pypt
+        cdef Point pt
+        if isinstance(left,PyPoint):
+            if isinstance(right,PyPoint):
+                pt = (<PyPoint>left).cpoint[0] - (<PyPoint>right).cpoint[0]
+                pypt = PyPoint(pt.x,pt.y)
+                return pypt
+            elif isinstance(right,PySize):
+                pt = (<PyPoint>left).cpoint[0] - (<PySize>right).csize[0] 
+                pypt = PyPoint(pt.x,pt.y)
+                return pypt
+        # the following __radd__ behavior implemented in pysize module
+        # elif isinstance(right,PyPoint):
+        #     if isinstance(left,PySize):
+        #         # pt = (<PySize>left).csize[0] + (<PyPoint>right).cpoint[0]
+        #         pt = opadd_sp((<PySize>left).csize[0], (<PyPoint>right).cpoint[0])
+        #         pypt = PyPoint(pt.x,pt.y)
+        #         return pypt
+        else:
+            return NotImplemented
 
     def __add__(left,right):
         cdef PyPoint pypt
         cdef Point pt
         if isinstance(left,PyPoint):
             if isinstance(right,PyPoint):
-                pt = left.cpoint[0] + right.cpoint[0]
+                pt = (<PyPoint>left).cpoint[0] + (<PyPoint>right).cpoint[0]
                 pypt = PyPoint(pt.x,pt.y)
                 return pypt
-            # elif isinstance(right,PySize):
-            #     pt = left.cpoint[0] + right.csize[0] 
-            #     pypt = PyPoint(pt.x,pt.y)
-            #     return pypt
-        # elif isinstance(left,PySize):
-        #     if isinstance(right,PyPoint):
-        #         pt = left.csize[0] + right.cpoint[0]
+            elif isinstance(right,PySize):
+                pt = (<PyPoint>left).cpoint[0] + (<PySize>right).csize[0] 
+                pypt = PyPoint(pt.x,pt.y)
+                return pypt
+        # the following __radd__ behavior implemented in pysize module
+        # elif isinstance(right,PyPoint):
+        #     if isinstance(left,PySize):
+        #         # pt = (<PySize>left).csize[0] + (<PyPoint>right).cpoint[0]
+        #         pt = opadd_sp((<PySize>left).csize[0], (<PyPoint>right).cpoint[0])
         #         pypt = PyPoint(pt.x,pt.y)
         #         return pypt
-        #     elif isinstance(right,PySize):
-        #         pt = left.csize[0] + right.csize[0] 
-        #         pypt = PyPoint(pt.x,pt.y)
-        #         return pypt
+        else:
+            return NotImplemented
 
     def __repr__(self):
         return "PyPoint[%s,%s]" % (

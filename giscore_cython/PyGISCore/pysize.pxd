@@ -1,4 +1,7 @@
 from libcpp cimport bool
+from pypoint cimport PyPoint
+from pypoint cimport Point
+cimport pypoint
 
 cdef extern from "PyGISCore/Size.h":
     cdef cppclass Size:
